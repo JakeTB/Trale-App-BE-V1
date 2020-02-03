@@ -21,6 +21,23 @@ describe("API-Testing", () => {
             .get("/api/")
             .expect(200);
         });
+        it("Reponds with the correct JSON object", () => {
+          return request(app)
+            .get("/api/")
+            .expect(200)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Hello");
+            });
+        });
+      });
+      describe("Errors", () => {
+        describe("Status: 404", () => {
+          it("Responds with a status 0f 404", () => {
+            return request(app)
+              .get("/ap/")
+              .expect(404);
+          });
+        });
       });
     });
   });
