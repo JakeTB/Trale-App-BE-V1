@@ -42,7 +42,7 @@ describe("API-Testing", () => {
     });
     describe("/users", () => {
       describe("GET - /users", () => {
-        describe("Status 200", () => {
+        describe("Status: 200", () => {
           it("Responds with a status of 200", () => {
             return request(app)
               .get("/api/users")
@@ -56,6 +56,34 @@ describe("API-Testing", () => {
                 expect(users[0].id).to.equal(1);
                 expect(users[1].id).to.equal(2);
                 expect(users[2].id).to.equal(3);
+              });
+          });
+        });
+        describe("Errors", () => {
+          describe("Status: 404", () => {
+            it("When sent an incorrect route responds with 404", () => {
+              return request(app)
+                .get("/api/usrs/")
+                .expect(404);
+            });
+          });
+        });
+      });
+    });
+    describe("/users/:id", () => {
+      describe("GET - /users/:id", () => {
+        describe("Status: 200", () => {
+          it("Responds with a status 200", () => {
+            return request(app)
+              .get("/api/users/1")
+              .expect(200);
+          });
+          it("Responds with the correct user", () => {
+            return request(app)
+              .get("/api/users/1")
+              .expect(200)
+              .then(({ body: { user } }) => {
+                expect(user.username).to.equal("Adam");
               });
           });
         });
