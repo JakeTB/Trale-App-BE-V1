@@ -87,6 +87,23 @@ describe("API-Testing", () => {
               });
           });
         });
+        describe.only("Errors", () => {
+          describe("Status: 404", () => {
+            it("Responds with 404 when sent an incorrect route", () => {
+              return request(app)
+                .get("/api/usr/1")
+                .expect(404);
+            });
+
+            describe("Status: 400", () => {
+              it("When sent an invalid id, responds with a 400", () => {
+                return request(app)
+                  .get("/api/users/apple")
+                  .expect(400);
+              });
+            });
+          });
+        });
       });
     });
   });

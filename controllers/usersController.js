@@ -8,8 +8,10 @@ exports.SendAllUsers = (req, res, next) => {
     .catch(error => {});
 };
 exports.SendSingleUser = (req, res, next) => {
-  getSingleUser(req.params).then(response => {
-    const user = response[0];
-    res.status(200).send({ user });
-  });
+  getSingleUser(req.params)
+    .then(response => {
+      const user = response[0];
+      res.status(200).send({ user });
+    })
+    .catch(next);
 };
