@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS trale_test;
+
+CREATE DATABASE trale_test;
