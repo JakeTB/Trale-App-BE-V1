@@ -13,9 +13,11 @@
     "pg": "^7.18.1",
     "supertest": "^4.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
   "scripts": {
-    "test": "mocha spec/app.spec.js",
+    "test": "jest",
     "start": "node listen.js",
     "setup-dbs": "psql -f ./db/setup.sql > output.txt",
     "seed": "knex seed:run",
