@@ -2,15 +2,15 @@ process.env.NODE_ENV = "test";
 const { app } = require("../app");
 const supertest = require("supertest");
 const request = supertest(app);
-const knex = require("../db/connection");
-beforeAll(() => {
-  return knex.seed.run();
-});
-afterAll(() => {
-  return knex.destroy();
-});
+// const knex = require("../db/connection");
+// beforeAll(() => {
+//   return knex.seed.run();
+// });
+// afterAll(() => {
+//   return knex.destroy();
+// });
 describe("Testing the API - /api/", () => {
-  describe.only("Status: 200", () => {
+  describe("Status: 200", () => {
     it("Responds with a status of 200", async done => {
       const response = await request.get("/api/");
       expect(response.status).toBe(200);
