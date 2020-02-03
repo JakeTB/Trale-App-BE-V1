@@ -1,0 +1,31 @@
+{
+  "name": "Trale-App-BE-V1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-sorted": "^0.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.20.8",
+    "mocha": "^7.0.1",
+    "pg": "^7.18.1",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeTB/Trale-App-BE-V1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeTB/Trale-App-BE-V1/issues"
+  },
+  "homepage": "https://github.com/JakeTB/Trale-App-BE-V1#readme"
+}
