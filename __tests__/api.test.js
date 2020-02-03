@@ -18,17 +18,15 @@ describe("Testing the API - /api/", () => {
     });
     it("Reponds with the correct JSON object", async done => {
       const response = await request.get("/api/");
-      console.log("Response", response);
+      expect(response.body.message).toBe("Hello")
       done();
     });
-    // describe("Errors", () => {
-    //   describe("Status: 404", () => {
-    //     it("Responds with a status 0f 404", () => {
-    //       return request(app)
-    //         .get("/ap/")
-    //         .expect(404);
-    //     });
-    //   });
-    // });
+    describe('/api ERRORS', () => {
+      it('Responds with 404 on non existent path', async done => {
+        const res = await request.get("/no_ta_path")
+        expect(res.status).toBe(404)
+        done()
+      });
+    });
   });
 });
