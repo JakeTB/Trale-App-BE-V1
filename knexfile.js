@@ -27,7 +27,7 @@ const customConfig = {
   },
   test: {
     connection: {
-      database: "trale_test",
+      database: "trale_be_test",
       user: "postgres",
       password: "1234.psql"
     }

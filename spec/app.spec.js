@@ -40,5 +40,26 @@ describe("API-Testing", () => {
         });
       });
     });
+    describe("/users", () => {
+      describe("GET - /users", () => {
+        describe("Status 200", () => {
+          it("Responds with a status of 200", () => {
+            return request(app)
+              .get("/api/users")
+              .expect(200);
+          });
+          it("Responds with the correct JSON object", () => {
+            return request(app)
+              .get("/api/users")
+              .expect(200)
+              .then(({ body: { users } }) => {
+                expect(users[0].id).to.equal(1);
+                expect(users[1].id).to.equal(2);
+                expect(users[2].id).to.equal(3);
+              });
+          });
+        });
+      });
+    });
   });
 });

@@ -16,7 +16,11 @@
   "devDependencies": {},
   "scripts": {
     "test": "mocha spec/app.spec.js",
-    "start": "node listen.js"
+    "start": "node listen.js",
+    "setup-dbs": "psql -f ./db/setup.sql > output.txt",
+    "seed": "knex seed:run",
+    "migrate-latest": "knex migrate:latest",
+    "migrate-rollback": "knex migrate:rollback"
   },
   "repository": {
     "type": "git",
