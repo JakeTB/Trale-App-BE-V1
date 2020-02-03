@@ -87,12 +87,25 @@ describe("API-Testing", () => {
               });
           });
         });
-        describe.only("Errors", () => {
+        describe("Errors", () => {
           describe("Status: 404", () => {
             it("Responds with 404 when sent an incorrect route", () => {
               return request(app)
                 .get("/api/usr/1")
                 .expect(404);
+            });
+            it("When sent a valid id, for a non existant entry", () => {
+              return request(app)
+                .get("/api/users/600")
+                .expect(404);
+            });
+            it("The error message returned is correct", () => {
+              return request(app)
+                .get("/api/users/900")
+                .expect(404)
+                .then(({ body: { message } }) => {
+                  expect(message).to.equal("That id does not exist");
+                });
             });
 
             describe("Status: 400", () => {
@@ -102,6 +115,25 @@ describe("API-Testing", () => {
                   .expect(400);
               });
             });
+          });
+        });
+      });
+      describe.only("PATCH - /users/:id", () => {
+        describe("Status: 200", () => {
+          it("Responds with a status of 200", () => {
+            return request(app)
+              .patch("/api/users/1")
+              .expect(200)
+              .send({ avatar: "Test123" });
+          });
+          it("Updates the avatar of the selected user", () => {
+            return request(app)
+              .patch("/api/users/1")
+              .expect(200)
+              .send({ avatar: "Test123" })
+              .then(({ body: { updatedUser } }) => {
+                expect(updatedUser.avatar).to.equal("Test123");
+              });
           });
         });
       });

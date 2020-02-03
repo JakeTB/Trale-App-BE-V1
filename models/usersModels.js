@@ -7,5 +7,24 @@ exports.getSingleUser = params => {
   return connection
     .select("*")
     .from("users")
-    .where({ id });
+    .where({ id })
+    .then(user => {
+      if (user[0]) return user;
+      else {
+        return Promise.reject({
+          message: "That id does not exist",
+          status: 404
+        });
+      }
+    });
+};
+exports.patchSingleUser = (params, body) => {
+  const { id } = params;
+  const { avatar } = body;
+  return connection
+    .select("*")
+    .from("users")
+    .where({ id })
+    .update({ avatar })
+    .returning("*");
 };

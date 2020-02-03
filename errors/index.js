@@ -13,3 +13,7 @@ exports.psqlErrors = (err, req, res, next) => {
     next(err);
   }
 };
+exports.customErrors = (err, req, res, next) => {
+  if (err.status) res.status(err.status).send({ message: err.message });
+  else next(err);
+};
