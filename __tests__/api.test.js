@@ -10,7 +10,7 @@ afterAll(() => {
   return knex.destroy();
 });
 describe("Testing the API - /api/", () => {
-  describe.only("Status: 200", () => {
+  describe("Status: 200", () => {
     it("Responds with a status of 200", async done => {
       const response = await request.get("/api/");
       expect(response.status).toBe(200);
@@ -18,14 +18,14 @@ describe("Testing the API - /api/", () => {
     });
     it("Reponds with the correct JSON object", async done => {
       const response = await request.get("/api/");
-      expect(response.body.message).toBe("Hello")
+      expect(response.body.message).toBe("Hello");
       done();
     });
-    describe('/api ERRORS', () => {
-      it('Responds with 404 on non existent path', async done => {
-        const res = await request.get("/no_ta_path")
-        expect(res.status).toBe(404)
-        done()
+    describe("/api ERRORS", () => {
+      it("Responds with 404 on non existent path", async done => {
+        const res = await request.get("/no_ta_path");
+        expect(res.status).toBe(404);
+        done();
       });
     });
   });

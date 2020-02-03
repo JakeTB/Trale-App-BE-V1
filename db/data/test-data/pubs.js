@@ -37,21 +37,5 @@ module.exports = [
       "The Headingley Taps, Bennett Road, Headingley, Leeds, West Yorkshire, LS6 3HN.",
     lat: 0,
     lng: 0
-  },
-  {
-    pub_picture: "",
-    pub_description: "",
-    pub_name: "",
-    pub_address: "",
-    lat: 0,
-    lng: 0
-  },
-  {
-    pub_picture: "",
-    pub_description: "",
-    pub_name: "",
-    pub_address: "",
-    lat: 0,
-    lng: 0
   }
 ];

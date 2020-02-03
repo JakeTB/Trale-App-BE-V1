@@ -28,14 +28,13 @@ const customConfig = {
   test: {
     connection: {
       database: "trale_be_test",
-      user: "tblack",
-      password: "password"
+      user: "postgres",
+      password: "1234.psql"
     }
   },
   production: {
     connection: `${DB_URL}?ssl=true`
   }
 };
-
 
 module.exports = { ...customConfig[ENV], ...baseConfig };
