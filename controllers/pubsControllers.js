@@ -1,7 +1,7 @@
 const { getAllPubs, getSinglePub, patchSinglePub, addNewPub } = require("../models/pubsModels");
 
 exports.sendAllPubs = (req, res, next) => {
-  getAllPubs().then(pubs => {
+  getAllPubs(req.query).then(pubs => {
     res.status(200).send({ pubs });
   });
 };
