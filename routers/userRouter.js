@@ -1,15 +1,12 @@
 const {
   SendAllUsers,
   SendSingleUser,
-  UpdateSingleUser,
-  createNewUser
+  UpdateSingleUser
 } = require("../controllers/usersController");
-
 const userRouter = require("express").Router();
-
-userRouter.route("/").get(SendAllUsers).post(createNewUser)
+userRouter.route("/").get(SendAllUsers);
 userRouter
   .route("/:id")
   .get(SendSingleUser)
-  .patch(UpdateSingleUser)
+  .patch(UpdateSingleUser);
 module.exports = { userRouter };

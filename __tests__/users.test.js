@@ -2,15 +2,7 @@ process.env.NODE_ENV = "test";
 const { app } = require("../app");
 const supertest = require("supertest");
 const request = supertest(app);
-const knex = require("../db/connection");
 
-beforeAll(() => {
-  return knex.seed.run()
-})
-afterAll(done => {
-  knex.destroy()
-  done()
-})
 
 describe('Endpoint: /users', () => {
   describe('GET /users', () => {
@@ -56,42 +48,6 @@ describe('Endpoint: /users', () => {
         const res = await request.get("/api/users/9999")
         const { status } = res
         expect(status).toBe(404)
-        done()
-      });
-      it('404 returns appropriate error message', async done => {
-        const res = await request.get("/api/users/999")
-        const { body: { message } } = res
-        expect(message).toBe("That id does not exist")
-        done()
-      });
-      it('400 response for invalid id type (bad request)', async done => {
-        const res = await request.get("/api/users/not_a_valid_id")
-        const { status } = res
-        expect(status).toBe(400)
-        done()
-      });
-    });
-    describe('METHOD: PATCH users/:id', () => {
-      it('returns status 200 for successful patch', async done => {
-        const postReq = { avatar: "new_avatar" }
-        const updatedUser = await request.patch("/api/users/1").send(postReq)
-        expect(updatedUser.status).toBe(200)
-        done()
-      });
-      it('avatar is successfully updated on patch request', async done => {
-        const postReq = { avatar: "new_avatar" }
-        const res = await request.patch("/api/users/1").send(postReq)
-        const { body: { updatedUser } } = res
-
-        expect(updatedUser.avatar).toBe("new_avatar")
-        done()
-      });
-    });
-    describe('METHOD: POST users/:id', () => {
-      it('201 status for post of user', async done => {
-        const res = await request.post("/api/users/").send({ username: "tblack", avatar: "this_picture" })
-        const { status } = res
-        expect(status).toBe(201)
         done()
       });
     });
