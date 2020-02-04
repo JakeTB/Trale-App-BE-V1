@@ -39,8 +39,7 @@ exports.addNewUser = user => {
     .insert(newUser)
     .into("users")
     .returning("*")
-    .then(user => 
-
+    .then(user => {
       return user[0]
     });
 };
