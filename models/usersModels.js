@@ -33,7 +33,9 @@ exports.addNewUser = user => {
   const newUser = {
     username: user.username,
     avatar: user.avatar,
-    bio: user.bio
+    bio: user.bio,
+    active_route: user.active_route,
+    completed_route: user.completed_route
   }
 
   return connection
