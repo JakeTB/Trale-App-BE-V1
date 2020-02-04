@@ -4,7 +4,6 @@ exports.up = function(knex) {
     routesTable.text("route_description");
     routesTable.text("route_name").notNullable();
     routesTable.text("route_picture");
-    routesTable.specificType("related_pubs", "INT[]").notNullable();
   });
 };
 

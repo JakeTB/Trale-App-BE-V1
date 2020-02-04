@@ -7,7 +7,12 @@ exports.up = function(knex) {
     pubsTable.text("pub_address").notNullable();
     pubsTable.float("lat").notNullable();
     pubsTable.float("lng").notNullable();
-    pubsTable.timestamp("joined").defaultTo(knex.fn.now());
+    pubsTable
+      .integer("routes_id")
+      .references("id")
+      .inTable("routes")
+      .notNull()
+      .onDelete("cascade");
   });
 };
 
