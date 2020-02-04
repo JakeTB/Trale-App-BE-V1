@@ -1,6 +1,10 @@
 const connection = require("../db/connection");
-exports.getAllPubs = () => {
-  return connection.select("*").from("pubs")
+exports.getAllPubs = ({ pub_name }) => {
+  return connection.select("*").from("pubs").modify(query => {
+    if (pub_name) query.where('pubs.pub_name', pub_name)
+  }).then(pubs => {
+    return pubs
+  })
 };
 
 
