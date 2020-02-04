@@ -1,7 +1,7 @@
 const {
   getAllUsers,
   getSingleUser,
-  patchSingleUser, addNewUser
+  patchSingleUser
 } = require("../models/usersModels");
 
 exports.SendAllUsers = (req, res, next) => {
@@ -9,7 +9,7 @@ exports.SendAllUsers = (req, res, next) => {
     .then(users => {
       res.status(200).send({ users });
     })
-    .catch(error => { });
+    .catch(error => {});
 };
 exports.SendSingleUser = (req, res, next) => {
   getSingleUser(req.params)
@@ -25,10 +25,3 @@ exports.UpdateSingleUser = (req, res, next) => {
     res.status(200).send({ updatedUser });
   });
 };
-
-exports.createNewUser = (req, res, next) => {
-
-  addNewUser(req.body).then(user => {
-    res.status(201).send({ user }).catch(next)
-  })
-}
