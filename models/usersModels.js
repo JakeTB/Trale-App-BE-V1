@@ -1,7 +1,13 @@
 const connection = require("../db/connection");
-exports.getAllUsers = () => {
-  return connection.select("*").from("users");
+exports.getAllUsers = ({ username }) => {
+  return connection.select("*").from("users").modify(query => {
+    if (username) query.where('users.username', username)
+  }).then(users => {
+    return users
+  })
 };
+
+
 exports.getSingleUser = params => {
   const { id } = params;
   return connection

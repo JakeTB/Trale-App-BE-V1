@@ -5,7 +5,7 @@ const {
 } = require("../models/usersModels");
 
 exports.SendAllUsers = (req, res, next) => {
-  getAllUsers()
+  getAllUsers(req.query)
     .then(users => {
       res.status(200).send({ users });
     })
