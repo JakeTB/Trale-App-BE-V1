@@ -8,10 +8,10 @@ exports.seed = function(knex) {
       return knex("users")
         .insert(userData)
         .then(() => {
-          return knex("pubs")
-            .insert(pubsData)
+          return knex("routes")
+            .insert(routesData)
             .then(() => {
-              return knex("routes").insert(routesData);
+              return knex("pubs").insert(pubsData);
             });
         });
     });

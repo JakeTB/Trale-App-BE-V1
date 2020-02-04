@@ -7,7 +7,8 @@ module.exports = [
     pub_name: "Woodies Craft Ale House",
     pub_address: "104 Otley Rd, Leeds LS16 5JG",
     lat: 53.8280068,
-    lng: -1.5852937
+    lng: -1.5852937,
+    routes_id: 1
   },
   {
     pub_picture:
@@ -16,7 +17,8 @@ module.exports = [
     pub_name: "The Three Horseshoes",
     pub_address: "98 Otley Rd, Leeds LS16 5JG",
     lat: 53.8271883,
-    lng: -1.5804187
+    lng: -1.5804187,
+    routes_id: 1
   },
   {
     pub_picture:
@@ -26,7 +28,8 @@ module.exports = [
     pub_address:
       "The New Inn, 68 Otley Road, Headingley, Leeds, West Yorkshire, LS6 4BA.",
     lat: 53.8266427,
-    lng: -1.5840527
+    lng: -1.5840527,
+    routes_id: 2
   },
   {
     pub_picture:
@@ -36,6 +39,7 @@ module.exports = [
     pub_address:
       "The Headingley Taps, Bennett Road, Headingley, Leeds, West Yorkshire, LS6 3HN.",
     lat: 0,
-    lng: 0
+    lng: 0,
+    routes_id: 2
   }
 ];
