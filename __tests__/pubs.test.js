@@ -64,5 +64,29 @@ describe("Testing the pubs endpoint - /api/pubs/", () => {
         });
       });
     });
+
+    describe('METHOD: PATCH pubs/:id', () => {
+      it('returns status 200 for successful patch', async done => {
+        const patchReq = { pub_name: "new_pub_name" }
+        const updatedPub = await request.patch("/api/pubs/1").send(patchReq)
+        expect(updatedPub.status).toBe(200)
+        done()
+      });
+      it('pub name is successfully updated on patch request', async done => {
+        const patchReq = { pub_name: "new_pub_name" }
+        const res = await request.patch("/api/pubs/1").send(patchReq)
+        const { body: { updatedPub } } = res
+        expect(updatedPub.pub_name).toBe("new_pub_name")
+        done()
+      });
+    });
+    describe('METHOD: POST pubs/:id', () => {
+      it('201 status for post of user', async done => {
+        const res = await request.post("/api/pubs/").send({ pub_name: "Rock Inn", pub_address: "458 Leeds and Bradford Road, LS13 1EP", lat: 53.8185063, lng: -1.6368455, description: "this is a pub" })
+        const { status } = res
+        expect(status).toBe(201)
+        done()
+      });
+    });
   });
 });

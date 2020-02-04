@@ -1,4 +1,4 @@
-const { getAllPubs, getSinglePub } = require("../models/pubsModels");
+const { getAllPubs, getSinglePub, patchSinglePub, addNewPub } = require("../models/pubsModels");
 
 exports.sendAllPubs = (req, res, next) => {
   getAllPubs().then(pubs => {
@@ -11,4 +11,16 @@ exports.sendSinglePub = (req, res, next) => {
     const pub = response[0]
     res.status(200).send({ pub })
   }).catch(next)
+}
+exports.updateSinglePub = (req, res, next) => {
+  patchSinglePub(req.params, req.body).then(response => {
+    const updatedPub = response[0]
+    res.status(200).send({ updatedPub })
+  })
+}
+
+exports.createNewPub = (req, res, next) => {
+  addNewPub(req.body).then(pub => {
+    res.sendStatus(201)
+  })
 }
