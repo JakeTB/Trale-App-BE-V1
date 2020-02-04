@@ -28,3 +28,18 @@ exports.patchSingleUser = (params, body) => {
     .update({ avatar })
     .returning("*");
 };
+
+exports.addNewUser = user => {
+  const newUser = {
+    username: user.username,
+    avatar: user.avatar
+  }
+
+  return connection
+    .insert(newUser)
+    .into("users")
+    .returning("*")
+    .then(user => {
+      return user[0]
+    });
+};
