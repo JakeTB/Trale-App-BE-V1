@@ -32,7 +32,8 @@ exports.patchSingleUser = (params, body) => {
 exports.addNewUser = user => {
   const newUser = {
     username: user.username,
-    avatar: user.avatar
+    avatar: user.avatar,
+    bio: user.bio
   }
 
   return connection
