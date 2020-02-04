@@ -29,6 +29,7 @@ exports.patchSingleUser = (params, body) => {
     .returning("*");
 };
 
+
 exports.addNewUser = user => {
   const newUser = {
     username: user.username,
@@ -43,3 +44,4 @@ exports.addNewUser = user => {
       return user[0]
     });
 };
+
