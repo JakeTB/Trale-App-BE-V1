@@ -23,7 +23,8 @@
     "setup-dbs": "psql -f ./db/setup.sql > output.txt",
     "seed": "knex seed:run",
     "migrate-latest": "knex migrate:latest",
-    "migrate-rollback": "knex migrate:rollback"
+    "migrate-rollback": "knex migrate:rollback",
+    "reboot": "psql -f ./db/setup.sql > output.tx && knex seed:run && knex migrate:latest"
   },
   "repository": {
     "type": "git",

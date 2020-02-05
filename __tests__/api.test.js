@@ -2,12 +2,15 @@ process.env.NODE_ENV = "test";
 const { app } = require("../app");
 const supertest = require("supertest");
 const request = supertest(app);
-// const knex = require("../db/connection");
-// beforeAll(() => {
-//   return knex.seed.run();
-// });
-// afterAll(() => {
-//   return knex.destroy();
+const knex = require("../db/connection");
+console.log("/-/STARTING API-TESTS/-/");
+
+// afterAll(done => {
+//   return knex.destroy().then(() => {
+//     return knex.seed.run().then(() => {
+//       done();
+//     });
+//   });
 // });
 describe("Testing the API - /api/", () => {
   describe("Status: 200", () => {
@@ -16,11 +19,7 @@ describe("Testing the API - /api/", () => {
       expect(response.status).toBe(200);
       done();
     });
-    it("Reponds with the correct JSON object", async done => {
-      const response = await request.get("/api/");
-      expect(response.body.message).toBe("Hello");
-      done();
-    });
+
     describe("/api ERRORS", () => {
       it("Responds with 404 on non existent path", async done => {
         const res = await request.get("/no_ta_path");
