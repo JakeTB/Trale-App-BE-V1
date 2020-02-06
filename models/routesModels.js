@@ -15,6 +15,7 @@ exports.getSingleRoute = params => {
       "pubs.routes_id"
     )
     .from("pubs")
+    .where("routes_id", id)
     .leftJoin("routes", "pubs.routes_id", "routes.id")
     .orderBy("pubs.id", "asc");
 };

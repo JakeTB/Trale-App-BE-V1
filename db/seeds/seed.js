@@ -1,4 +1,9 @@
-const { userData, pubsData, routesData } = require("../data/index.js");
+const {
+  userData,
+  pubsData,
+  routesData,
+  user_routesData
+} = require("../data/index.js");
 
 exports.seed = function(knex) {
   return knex.migrate
@@ -18,6 +23,11 @@ exports.seed = function(knex) {
                 .insert(pubsData)
                 .then(() => {
                   console.log("Successfully seeded pubs data");
+                  return knex("user_routes")
+                    .insert(user_routesData)
+                    .then(() => {
+                      console.log("Successfully seed user_routes data");
+                    });
                 });
             });
         });
