@@ -8,5 +8,6 @@ exports.getSingleRoute = params => {
   return connection
     .select("pub_name", "lat", "lng", "pubs.id")
     .from("pubs")
-    .where("routes_id", id);
+    .where("routes_id", id)
+    .orderBy("pubs.id", "asc");
 };
