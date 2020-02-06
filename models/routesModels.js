@@ -6,7 +6,7 @@ exports.getAllRoutes = () => {
 exports.getSingleRoute = params => {
   const { id } = params;
   return connection
-    .select("pub_name", "lat", "lng")
+    .select("pub_name", "lat", "lng", "pubs.id")
     .from("pubs")
     .where("routes_id", id);
 };
