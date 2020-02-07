@@ -11,7 +11,6 @@ exports.createUserRoutes = (req, res, next) => {
 };
 exports.updateUserRoutes = (req, res, next) => {
   patchUserRoutes(req.body).then(updatedUserRoutes => {
-    console.log("THEN");
     res.status(201).send({ updatedUserRoutes });
   });
 };

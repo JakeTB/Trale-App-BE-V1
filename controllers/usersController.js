@@ -24,7 +24,7 @@ exports.SendSingleUser = (req, res, next) => {
 exports.UpdateSingleUser = (req, res, next) => {
   patchSingleUser(req.params, req.body).then(response => {
     const updatedUser = response[0];
-    res.status(200).send({ updatedUser });
+    res.status(201).send({ updatedUser });
   });
 };
 

@@ -15,13 +15,12 @@ exports.postUserRoute = body => {
 };
 exports.patchUserRoutes = body => {
   const { user_id, routes_id } = body;
-  console.log(body);
+
   return connection("user_routes")
     .where({ user_id, routes_id })
     .increment("progress")
     .returning("*")
     .then(updatedUserRoute => {
-      console.log("return");
       return updatedUserRoute[0];
     });
 };
