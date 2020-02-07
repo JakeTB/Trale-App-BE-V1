@@ -1,15 +1,27 @@
 const connection = require("../db/connection");
 
 exports.postUserRoute = body => {
-  console.log("inside model");
-  const { user_id, routes_id, progress } = body;
+  const { user_id, routes_id } = body;
+  const progress = 0;
   const newUserRoute = { user_id, routes_id, progress };
-  console.log("newUserRoute", newUserRoute);
+
   return connection
     .insert(newUserRoute)
     .into("user_routes")
     .returning("*")
     .then(userRoute => {
       return userRoute[0];
+    });
+};
+exports.patchUserRoutes = body => {
+  const { user_id, routes_id } = body;
+  console.log(body);
+  return connection("user_routes")
+    .where({ user_id, routes_id })
+    .increment("progress")
+    .returning("*")
+    .then(updatedUserRoute => {
+      console.log("return");
+      return updatedUserRoute[0];
     });
 };
