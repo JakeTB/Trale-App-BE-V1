@@ -7,7 +7,6 @@ exports.sendAllRoutes = (req, res, next) => {
 };
 exports.sendSingleRoute = (req, res, next) => {
   getSingleRoute(req.params).then(route => {
-    console.log(route);
     res.status(200).send({ route });
   });
 };
