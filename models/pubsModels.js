@@ -1,15 +1,18 @@
 const connection = require("../db/connection");
 exports.getAllPubs = ({ pub_name }) => {
-  return connection.select("*").from("pubs").modify(query => {
-    if (pub_name) query.where('pubs.pub_name', pub_name)
-  }).then(pubs => {
-    return pubs
-  })
+  return connection
+    .select("*")
+    .from("pubs")
+    .modify(query => {
+      if (pub_name) query.where("pubs.pub_name", pub_name);
+    })
+    .then(pubs => {
+      return pubs;
+    });
 };
 
-
 exports.getSinglePub = params => {
-  const { id } = params
+  const { id } = params;
   return connection
     .select("*")
     .from("pubs")
@@ -20,22 +23,21 @@ exports.getSinglePub = params => {
         return Promise.reject({
           message: "That id does not exist",
           status: 404
-        })
+        });
       }
-    })
-}
+    });
+};
 
 exports.patchSinglePub = (params, body) => {
-  const { id } = params
-  const { pub_name } = body
+  const { id } = params;
+  const { pub_name } = body;
   return connection
     .select("*")
     .from("pubs")
     .where({ id })
     .update({ pub_name })
-    .returning("*")
-
-}
+    .returning("*");
+};
 
 exports.addNewPub = pub => {
   const newPub = {
@@ -45,13 +47,13 @@ exports.addNewPub = pub => {
     pub_picture: pub.pub_picture,
     lat: pub.lat,
     lng: pub.lng
-  }
+  };
 
   return connection
     .insert(newPub)
     .into("pubs")
     .returning("*")
     .then(pub => {
-      return pub[0]
-    })
-}
+      return pub[0];
+    });
+};

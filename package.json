@@ -15,11 +15,10 @@
     "supertest": "^4.0.2"
   },
   "devDependencies": {
-    "claudia": "^5.12.0",
-    "jest": "^25.1.0"
+    "claudia": "^5.12.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "mocha spec/app.spec.js",
     "start": "node listen.js",
     "setup-dbs": "psql -f ./db/setup.sql > output.txt",
     "seed": "knex seed:run",
