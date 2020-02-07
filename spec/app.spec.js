@@ -218,10 +218,10 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("POST - /api/user_routes", () => {
-    describe("Status: 200", () => {
+  describe("POST - /api/user_routes", () => {
+    describe("Status: 201", () => {
       it("The posted route appears in the database", () => {
-        const newPost = { user_id: 2, routes_id: 1, progress: 0 };
+        const newPost = { user_id: 2, routes_id: 1 };
         return request(app)
           .post("/api/user_routes")
           .send(newPost)
@@ -234,13 +234,26 @@ describe("API-TESTING", () => {
           });
       });
     });
-    describe("POST - /api/users/user_routes Errors", () => {
+    describe("POST - /api/user_routes Errors", () => {
       describe("Status: 404", () => {
         it("Returns with a 404 when sent a wrong url", () => {
           return request(app)
             .post("/api/users_routs")
             .send({ user_id: 2, routes_id: 1, progress: 0 })
             .expect(404);
+        });
+      });
+    });
+    describe.only("PATCH - /api/users_routes", () => {
+      describe("Status: 201", () => {
+        it("Updates the progress on the patched route", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: 1, routes_id: 1 })
+            .expect(201)
+            .then(({ body: { updatedUserRoutes } }) => {
+              expect(updatedUserRoutes.progress).to.equal(2);
+            });
         });
       });
     });

@@ -1,13 +1,15 @@
 const {
   sendAllUserRoutes,
-  createUserRoutes
+  createUserRoutes,
+  updateUserRoutes
 } = require("../controllers/user_routesControllers");
 
 const user_routesRouter = require("express").Router();
-console.log("HERE");
+
 user_routesRouter
   .route("/")
   .get(sendAllUserRoutes)
-  .post(createUserRoutes);
+  .post(createUserRoutes)
+  .patch(updateUserRoutes);
 
 module.exports = { user_routesRouter };
