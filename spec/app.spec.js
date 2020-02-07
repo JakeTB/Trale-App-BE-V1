@@ -57,6 +57,7 @@ describe("API-TESTING", () => {
           });
       });
     });
+    describe("Get: /api/pubs - Errors", () => {});
   });
   describe("Get - /api/pubs/:id", () => {
     it("200 respsonse", () => {
@@ -228,7 +229,7 @@ describe("API-TESTING", () => {
           .expect(201)
           .then(({ body: { userRoute } }) => {
             expect(userRoute.progress).to.equal(0);
-            expect(userRoute.id).to.equal(6);
+            expect(userRoute.id).to.equal(5);
             expect(userRoute.user_id).to.equal(2);
             expect(userRoute.routes_id).to.equal(1);
           });
@@ -244,7 +245,7 @@ describe("API-TESTING", () => {
         });
       });
     });
-    describe.only("PATCH - /api/users_routes", () => {
+    describe("PATCH - /api/users_routes", () => {
       describe("Status: 201", () => {
         it("Updates the progress on the patched route", () => {
           return request(app)
