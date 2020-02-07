@@ -57,106 +57,127 @@ describe("API-TESTING", () => {
           });
       });
     });
-    describe("Get: /api/pubs - Errors", () => {});
+    describe("Get: /api/pubs - Errors", () => {
+      describe("Status:404", () => {
+        it("When passed an incorrect route returns with 404", () => {
+          return request(app).get("/api/pins");
+        });
+      });
+    });
   });
   describe("Get - /api/pubs/:id", () => {
-    it("200 respsonse", () => {
-      return request(app)
-        .get("/api/pubs/1")
-        .expect(200);
-    });
-    it("responds with appropriate pub data", () => {
-      return request(app)
-        .get("/api/pubs/2")
-        .expect(200)
-        .then(({ body: { pub } }) => {
-          expect(pub.pub_name).to.equal("The Three Horseshoes");
-        });
-    });
-    describe("GET /pubs/:id ERRORS", () => {
-      it("404 for valid, but non existent user ID", () => {
+    describe("Status:200", () => {
+      it("200 respsonse", () => {
         return request(app)
-          .get("/api/pubs/9999")
-          .expect(404);
+          .get("/api/pubs/1")
+          .expect(200);
       });
-      it("404 returns appropriate error message", () => {
+      it("responds with appropriate pub data", () => {
         return request(app)
-          .get("/api/pubs/999")
-          .expect(404)
-          .then(({ body: { message } }) => {
-            expect(message).to.equal("That id does not exist");
+          .get("/api/pubs/2")
+          .expect(200)
+          .then(({ body: { pub } }) => {
+            expect(pub.pub_name).to.equal("The Three Horseshoes");
           });
       });
-      it("400 response for invalid id type (bad request)", () => {
-        return request(app)
-          .get("/api/pubs/not_a_valid_id")
-          .expect(400);
+    });
+    describe("Get /pubs/:id - Errors", () => {
+      describe("Status:404", () => {
+        it("404 for valid, but non existent user ID", () => {
+          return request(app)
+            .get("/api/pubs/9999")
+            .expect(404);
+        });
+        it("404 returns appropriate error message", () => {
+          return request(app)
+            .get("/api/pubs/999")
+            .expect(404)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("That id does not exist");
+            });
+        });
+      });
+      describe("Status: 400", () => {
+        it("400 response for invalid id type (bad request)", () => {
+          return request(app)
+            .get("/api/pubs/not_a_valid_id")
+            .expect(400);
+        });
       });
     });
   });
-  describe("Patch - pubs/:id", () => {
-    it("returns status 200 for successful patch", () => {
-      const patchReq = { pub_name: "new_pub_name" };
-      return request(app)
-        .patch("/api/pubs/1")
-        .send(patchReq)
-        .expect(200);
-    });
-    it("pub name is successfully updated on patch request", () => {
-      const patchReq = { pub_name: "new_pub_name" };
-      return request(app)
-        .patch("/api/pubs/1")
-        .send(patchReq)
-        .expect(200)
-        .then(({ body: { updatedPub } }) => {
-          expect(updatedPub.pub_name).to.equal("new_pub_name");
-        });
-    });
-  });
-  describe("Post - pubs/:id", () => {
-    it("201 status for post of user", () => {
-      return request(app)
-        .post("/api/pubs/")
-        .send({
-          pub_name: "Rock Inn",
-          pub_address: "458 Leeds and Bradford Road, LS13 1EP",
-          lat: 53.8185063,
-          lng: -1.6368455,
-          description: "this is a pub"
-        })
-        .then(({ status }) => {
-          expect(status).to.equal(201);
-        });
+  describe("Patch - /api/pubs/:id", () => {
+    describe("Status: 201", () => {
+      it("returns status 201 for successful patch", () => {
+        const patchReq = { pub_name: "new_pub_name" };
+        return request(app)
+          .patch("/api/pubs/1")
+          .send(patchReq)
+          .expect(201);
+      });
+      it("pub name is successfully updated on patch request", () => {
+        const patchReq = { pub_name: "new_pub_name" };
+        return request(app)
+          .patch("/api/pubs/1")
+          .send(patchReq)
+          .expect(201)
+          .then(({ body: { updatedPub } }) => {
+            expect(updatedPub.pub_name).to.equal("new_pub_name");
+          });
+      });
     });
   });
-  describe("GET /users", () => {
-    it("200 response", () => {
-      return request(app)
-        .get("/api/users")
-        .expect(200);
-    });
-    it("responds with correct JSON data", () => {
-      return request(app)
-        .get("/api/users")
-        .expect(200)
-        .then(({ body: { users } }) => {
-          expect(users[0].id).to.equal(1);
-          expect(users[1].id).to.equal(2);
-        });
-    });
-  });
-  describe("ERRORS /users", () => {
-    it("404 response", () => {
-      return request(app)
-        .get("/api/NOT_USER_ENDPOINT")
-        .expect(404)
-        .then(({ body: { message } }) => {
-          expect(message).to.equal("Route not found");
-        });
+  describe("Post - /api/pubs/:id", () => {
+    describe("Status: 201", () => {
+      it("201 status for post of user", () => {
+        return request(app)
+          .post("/api/pubs/")
+          .send({
+            pub_name: "Rock Inn",
+            pub_address: "458 Leeds and Bradford Road, LS13 1EP",
+            lat: 53.8185063,
+            lng: -1.6368455,
+            description: "this is a pub"
+          })
+          .then(({ status }) => {
+            expect(status).to.equal(201);
+          });
+      });
     });
   });
-  describe("/users/:id", () => {
-    describe("GET /users/:id", () => {
+  describe("Get - /api/users", () => {
+    describe("Status: 200", () => {
+      it("200 response", () => {
+        return request(app)
+          .get("/api/users")
+          .expect(200);
+      });
+      it("responds with correct JSON data", () => {
+        return request(app)
+          .get("/api/users")
+          .expect(200)
+          .then(({ body: { users } }) => {
+            expect(users[0].id).to.equal(1);
+            expect(users[1].id).to.equal(2);
+          });
+      });
+    });
+    describe("Get - /api/users - Errors", () => {
+      describe("Status: 404", () => {
+        it("404 response", () => {
+          return request(app)
+            .get("/api/NOT_USER_ENDPOINT")
+            .expect(404)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Route not found");
+            });
+        });
+      });
+    });
+  });
+
+  describe("Get - /api/users/:id", () => {
+    describe("Status: 200", () => {
       it("200 respsonse", () => {
         return request(app)
           .get("/api/users/1")
@@ -171,55 +192,63 @@ describe("API-TESTING", () => {
           });
       });
     });
-    describe("Errors /users/:id", () => {
-      it("404 for valid, but non existent user ID", () => {
-        return request(app)
-          .get("/api/users/9999")
-          .expect(404);
-      });
-      it("404 returns appropriate error message", () => {
-        return request(app)
-          .get("/api/users/999")
-          .expect(404)
-          .then(({ body: { message } }) => {
-            expect(message).to.equal("That id does not exist");
+    describe("Get - /api/users/:id - Errors", () => {
+      describe("Status: 404", () => {
+        it("404 for valid, but non existent user ID", () => {
+          return request(app)
+            .get("/api/users/9999")
+            .expect(404);
+        });
+        it("404 returns appropriate error message", () => {
+          return request(app)
+            .get("/api/users/999")
+            .expect(404)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("That id does not exist");
+            });
+        });
+        describe("Status: 400", () => {
+          it("400 response for invalid id type (bad request(app))", () => {
+            return request(app)
+              .get("/api/users/not_a_valid_id")
+              .expect(400);
           });
-      });
-      it("400 response for invalid id type (bad request(app))", () => {
-        return request(app)
-          .get("/api/users/not_a_valid_id")
-          .expect(400);
+        });
       });
     });
-    describe("METHOD: PATCH users/:id", () => {
-      it("returns status 200 for successful patch", () => {
-        const postReq = { avatar: "new_avatar" };
-        return request(app)
-          .patch("/api/users/1")
-          .send(postReq)
-          .expect(200);
-      });
-      it("avatar is successfully updated on patch request(app)", () => {
-        const postReq = { avatar: "new_avatar" };
-        return request(app)
-          .patch("/api/users/1")
-          .send(postReq)
-          .expect(200)
-          .then(({ body: { updatedUser } }) => {
-            expect(updatedUser.avatar).to.equal("new_avatar");
-          });
+    describe("Patch - /api/users/:id", () => {
+      describe("Status: 201", () => {
+        it("returns status 201 for successful patch", () => {
+          const postReq = { avatar: "new_avatar" };
+          return request(app)
+            .patch("/api/users/1")
+            .send(postReq)
+            .expect(201);
+        });
+        it("avatar is successfully updated on patch request(app)", () => {
+          const postReq = { avatar: "new_avatar" };
+          return request(app)
+            .patch("/api/users/1")
+            .send(postReq)
+            .expect(201)
+            .then(({ body: { updatedUser } }) => {
+              expect(updatedUser.avatar).to.equal("new_avatar");
+            });
+        });
       });
     });
-    describe("METHOD: POST users/:id", () => {
-      it("201 status for post of user", () => {
-        return request(app)
-          .post("/api/users/")
-          .send({ username: "tblack", avatar: "this_picture" })
-          .expect(201);
+    describe("Post -  /api/users/:id", () => {
+      describe("Status: 201", () => {
+        it("201 status for post of user", () => {
+          return request(app)
+            .post("/api/users/")
+            .send({ username: "tblack", avatar: "this_picture" })
+            .expect(201);
+        });
       });
     });
   });
-  describe("POST - /api/user_routes", () => {
+  describe("Post - /api/user_routes", () => {
     describe("Status: 201", () => {
       it("The posted route appears in the database", () => {
         const newPost = { user_id: 2, routes_id: 1 };
@@ -235,7 +264,7 @@ describe("API-TESTING", () => {
           });
       });
     });
-    describe("POST - /api/user_routes Errors", () => {
+    describe("Post - /api/user_routes - Errors", () => {
       describe("Status: 404", () => {
         it("Returns with a 404 when sent a wrong url", () => {
           return request(app)
