@@ -127,7 +127,7 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe("Post - /api/pubs/:id", () => {
+  describe("Post - /api/pubs/", () => {
     describe("Status: 201", () => {
       it("201 status for post of user", () => {
         return request(app)
@@ -237,14 +237,14 @@ describe("API-TESTING", () => {
         });
       });
     });
-    describe.only("Post -  /api/users/", () => {
-      describe("Status: 201", () => {
-        it("201 status for post of user", () => {
-          return request(app)
-            .post("/api/users/")
-            .send({ username: "tblack", avatar: "this_picture" })
-            .expect(201);
-        });
+  });
+  describe.only("Post -  /api/users/", () => {
+    describe("Status: 201", () => {
+      it("201 status for post of user", () => {
+        return request(app)
+          .post("/api/users/")
+          .send({ username: "tblack", avatar: "this_picture" })
+          .expect(201);
       });
     });
   });
