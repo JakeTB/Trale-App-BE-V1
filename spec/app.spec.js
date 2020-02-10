@@ -298,4 +298,13 @@ describe("API-TESTING", () => {
       });
     });
   });
+  describe("Get - /api/users_routes/user_id", () => {
+    describe("Status: 200", () => {
+      it("Responds with a status of 200", () => {
+        return request(app)
+          .get("/api/user_route/1")
+          .expect(200);
+      });
+    });
+  });
 });

@@ -1,6 +1,7 @@
 const {
   postUserRoute,
-  patchUserRoutes
+  patchUserRoutes,
+  getSingleUserRoutes
 } = require("../models/user_routesModels");
 
 exports.sendAllUserRoutes = (req, res, next) => {};
@@ -17,4 +18,9 @@ exports.updateUserRoutes = (req, res, next) => {
       res.status(201).send({ updatedUserRoutes });
     })
     .catch(next);
+};
+exports.sendSingleUserRoutes = (req, res, next) => {
+  getSingleUserRoutes().then(() => {
+    res.sendStatus(200);
+  });
 };
