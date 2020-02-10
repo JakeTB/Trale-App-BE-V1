@@ -24,3 +24,6 @@ exports.patchUserRoutes = body => {
       return updatedUserRoute[0];
     });
 };
+exports.getSingleUserRoutes = body => {
+  const { userid } = body;
+};

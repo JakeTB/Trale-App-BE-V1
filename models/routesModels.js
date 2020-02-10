@@ -12,7 +12,8 @@ exports.getSingleRoute = params => {
       "lng",
       "pubs.id",
       "routes.route_name",
-      "pubs.routes_id"
+      "pubs.routes_id",
+      "pubs.pub_description"
     )
     .from("pubs")
     .where("routes_id", id)

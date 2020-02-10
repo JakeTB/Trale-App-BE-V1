@@ -274,7 +274,7 @@ describe("API-TESTING", () => {
         });
       });
     });
-    describe("PATCH - /api/users_routes", () => {
+    describe("Patch - /api/user_routes", () => {
       describe("Status: 201", () => {
         it("Updates the progress on the patched route", () => {
           return request(app)
@@ -285,6 +285,25 @@ describe("API-TESTING", () => {
               expect(updatedUserRoutes.progress).to.equal(2);
             });
         });
+      });
+      describe("Patch - /api/user_routes - Errors", () => {
+        describe("Status: 404", () => {
+          it("When sent an incorrect url returns with a 404", () => {
+            return request(app)
+              .patch("/api/users_routes")
+              .send({ user_id: 1, routes_id: 1 })
+              .expect(404);
+          });
+        });
+      });
+    });
+  });
+  describe("Get - /api/users_routes/user_id", () => {
+    describe("Status: 200", () => {
+      it("Responds with a status of 200", () => {
+        return request(app)
+          .get("/api/user_route/1")
+          .expect(200);
       });
     });
   });

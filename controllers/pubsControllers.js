@@ -6,9 +6,11 @@ const {
 } = require("../models/pubsModels");
 
 exports.sendAllPubs = (req, res, next) => {
-  getAllPubs(req.query).then(pubs => {
-    res.status(200).send({ pubs });
-  });
+  getAllPubs(req.query)
+    .then(pubs => {
+      res.status(200).send({ pubs });
+    })
+    .catch(next);
 };
 
 exports.sendSinglePub = (req, res, next) => {
@@ -20,14 +22,18 @@ exports.sendSinglePub = (req, res, next) => {
     .catch(next);
 };
 exports.updateSinglePub = (req, res, next) => {
-  patchSinglePub(req.params, req.body).then(response => {
-    const updatedPub = response[0];
-    res.status(201).send({ updatedPub });
-  });
+  patchSinglePub(req.params, req.body)
+    .then(response => {
+      const updatedPub = response[0];
+      res.status(201).send({ updatedPub });
+    })
+    .catch(next);
 };
 
 exports.createNewPub = (req, res, next) => {
-  addNewPub(req.body).then(pub => {
-    res.sendStatus(201);
-  });
+  addNewPub(req.body)
+    .then(pub => {
+      res.sendStatus(201);
+    })
+    .catch(next);
 };
