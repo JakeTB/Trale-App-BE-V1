@@ -1,12 +1,15 @@
 const connection = require("../db/connection");
 exports.getAllUsers = ({ username }) => {
-  return connection.select("*").from("users").modify(query => {
-    if (username) query.where('users.username', username)
-  }).then(users => {
-    return users
-  })
+  return connection
+    .select("*")
+    .from("users")
+    .modify(query => {
+      if (username) query.where("users.username", username);
+    })
+    .then(users => {
+      return users;
+    });
 };
-
 
 exports.getSingleUser = params => {
   const { id } = params;
@@ -36,19 +39,20 @@ exports.patchSingleUser = (params, body) => {
 };
 
 exports.addNewUser = user => {
+  console.log("ADD NEW USER");
   const newUser = {
     username: user.username,
-    avatar: user.avatar,
+    avatar: user.avatar || null,
     bio: user.bio,
     active_route: user.active_route,
     completed_route: user.completed_route
-  }
+  };
 
   return connection
     .insert(newUser)
     .into("users")
     .returning("*")
     .then(user => {
-      return user[0]
+      return user[0];
     });
 };
