@@ -6,10 +6,13 @@ const {
 } = require("../controllers/usersController");
 
 const userRouter = require("express").Router();
-
-userRouter.route("/").get(SendAllUsers).post(createNewUser)
+console.log("USER ROUTER");
+userRouter
+  .route("/")
+  .get(SendAllUsers)
+  .post(createNewUser);
 userRouter
   .route("/:id")
   .get(SendSingleUser)
-  .patch(UpdateSingleUser)
+  .patch(UpdateSingleUser);
 module.exports = { userRouter };

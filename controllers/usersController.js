@@ -29,6 +29,7 @@ exports.UpdateSingleUser = (req, res, next) => {
 };
 
 exports.createNewUser = (req, res, next) => {
+  console.log("CONTROLLER");
   addNewUser(req.body)
     .then(user => {
       res.sendStatus(201);
