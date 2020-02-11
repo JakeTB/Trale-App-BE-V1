@@ -32,7 +32,9 @@ exports.createNewUser = (req, res, next) => {
   console.log("CONTROLLER");
   addNewUser(req.body)
     .then(user => {
-      res.sendStatus(201);
+      console.log("USER POSTED");
+      console.log(user);
+      res.status(201).send({ user });
     })
     .catch(next);
 };
