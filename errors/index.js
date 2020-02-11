@@ -4,7 +4,8 @@ exports.psqlErrors = (err, req, res, next) => {
       status: 400,
       message: "Bad Request, invalid syntax, id should be an number"
     },
-    "23503": { status: 400, message: "Bad request, that id does not exist" }
+    "23503": { status: 400, message: "Bad request, that id does not exist" },
+    "23505": { status: 400, message: "That value is not unique" }
   };
 
   if (Object.keys(psqlCodes).includes(err.code)) {
