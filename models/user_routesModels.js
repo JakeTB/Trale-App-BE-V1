@@ -31,7 +31,7 @@ exports.postUserRoute = body => {
     });
 };
 exports.patchUserRoutes = body => {
-  const { user_id, routes_id } = body;
+  const { user_id, routes_id, completed } = body;
   if (!user_id && !routes_id) {
     return Promise.reject({
       status: 400,
@@ -53,6 +53,7 @@ exports.patchUserRoutes = body => {
   return connection("user_routes")
     .where({ user_id, routes_id })
     .increment("progress")
+    .update({ completed })
     .returning("*")
     .then(updatedUserRoute => {
       return updatedUserRoute[0];
