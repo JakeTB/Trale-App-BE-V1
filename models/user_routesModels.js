@@ -15,7 +15,24 @@ exports.postUserRoute = body => {
 };
 exports.patchUserRoutes = body => {
   const { user_id, routes_id } = body;
-
+  if (!user_id && !routes_id) {
+    return Promise.reject({
+      status: 400,
+      message: "Empty request body"
+    });
+  }
+  if (!user_id) {
+    return Promise.reject({
+      status: 400,
+      message: "No user_id on request body"
+    });
+  }
+  if (!routes_id) {
+    return Promise.reject({
+      status: 400,
+      message: "No routes_id on request body"
+    });
+  }
   return connection("user_routes")
     .where({ user_id, routes_id })
     .increment("progress")
