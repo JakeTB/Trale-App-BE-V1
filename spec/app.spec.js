@@ -358,6 +358,18 @@ describe("API-TESTING", () => {
               expect(message).to.equal("No routes_id on request body");
             });
         });
+        it("When sent a patch request with an invalid user_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: "apple", routes_id: 1 })
+            .expect(400);
+        });
+        it("When sent a patch request with an invalid route_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: 1, routes_id: "apple" })
+            .expect(400);
+        });
       });
     });
   });
