@@ -39,6 +39,7 @@ exports.patchSingleUser = (params, body) => {
 };
 
 exports.addNewUser = user => {
+  console.log("Incoming users", users);
   if (!user.username) {
     return Promise.reject({
       message: "No username in request body",
