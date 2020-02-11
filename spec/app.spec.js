@@ -321,7 +321,7 @@ describe("API-TESTING", () => {
           });
       });
     });
-    describe.only("Patch - /api/user_routes - Errors", () => {
+    describe("Patch - /api/user_routes - Errors", () => {
       describe("Status: 404", () => {
         it("When sent an incorrect url returns with a 404", () => {
           return request(app)
@@ -358,10 +358,22 @@ describe("API-TESTING", () => {
               expect(message).to.equal("No routes_id on request body");
             });
         });
+        it("When sent a patch request with an invalid user_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: "apple", routes_id: 1 })
+            .expect(400);
+        });
+        it("When sent a patch request with an invalid route_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: 1, routes_id: "apple" })
+            .expect(400);
+        });
       });
     });
   });
-  describe("Get - /api/users_routes/user_id", () => {
+  describe.only("Get - /api/users_routes/:user_id", () => {
     describe("Status: 200", () => {
       it("Responds with a status of 200", () => {
         return request(app)

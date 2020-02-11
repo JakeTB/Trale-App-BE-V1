@@ -20,7 +20,7 @@ exports.updateUserRoutes = (req, res, next) => {
     .catch(next);
 };
 exports.sendSingleUserRoutes = (req, res, next) => {
-  getSingleUserRoutes(req.params).then(() => {
-    res.sendStatus(200);
+  getSingleUserRoutes(req.params).then(userRoutes => {
+    res.satus(200).send(userRoutes);
   });
 };

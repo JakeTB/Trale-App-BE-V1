@@ -42,5 +42,8 @@ exports.patchUserRoutes = body => {
     });
 };
 exports.getSingleUserRoutes = params => {
-  const { userid } = params;
+  const { user_id } = params;
+  return connection("user_routes")
+    .where({ user_id })
+    .returning("*");
 };
