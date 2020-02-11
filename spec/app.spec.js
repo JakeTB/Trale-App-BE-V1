@@ -238,13 +238,46 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("Post -  /api/users/", () => {
+  describe("Post -  /api/users/", () => {
     describe("Status: 201", () => {
       it("201 status for post of user", () => {
         return request(app)
           .post("/api/users/")
           .send({ username: "tblack", avatar: "this_picture" })
           .expect(201);
+      });
+    });
+    describe.only("Post - /api/users/ - Errors", () => {
+      describe("Status: 404", () => {
+        it("Returns with a status of 404 and a route not found emssage", () => {
+          return request(app)
+            .post("/api/ussers")
+            .send({ username: "tblack", avatar: "this_picture" })
+            .expect(404)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Route not found");
+            });
+        });
+      });
+      describe("Status: 400", () => {
+        it("When sent an empty post should respond with a status of 400", () => {
+          return request(app)
+            .post("/api/users")
+            .send({})
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No username in request body");
+            });
+        });
+        it("When trying to create a user with a username that is not unique", () => {
+          return request(app)
+            .post("/api/users")
+            .send({ username: "Jake" })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("That value is not unique");
+            });
+        });
       });
     });
   });

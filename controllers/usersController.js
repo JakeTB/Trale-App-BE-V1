@@ -10,7 +10,7 @@ exports.SendAllUsers = (req, res, next) => {
     .then(users => {
       res.status(200).send({ users });
     })
-    .catch(error => {});
+    .catch(next);
 };
 exports.SendSingleUser = (req, res, next) => {
   getSingleUser(req.params)
@@ -22,18 +22,17 @@ exports.SendSingleUser = (req, res, next) => {
 };
 
 exports.UpdateSingleUser = (req, res, next) => {
-  patchSingleUser(req.params, req.body).then(response => {
-    const updatedUser = response[0];
-    res.status(201).send({ updatedUser });
-  });
+  patchSingleUser(req.params, req.body)
+    .then(response => {
+      const updatedUser = response[0];
+      res.status(201).send({ updatedUser });
+    })
+    .catch(next);
 };
 
 exports.createNewUser = (req, res, next) => {
-  console.log("CONTROLLER");
   addNewUser(req.body)
     .then(user => {
-      console.log("USER POSTED");
-      console.log(user);
       res.status(201).send({ user });
     })
     .catch(next);
