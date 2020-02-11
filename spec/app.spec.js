@@ -39,6 +39,7 @@ describe("API-TESTING", () => {
           });
       });
     });
+    describe("Testing endpoints for incorrect methods", () => {});
   });
   describe("Get: /api/pubs", () => {
     describe("Status:200", () => {
@@ -207,34 +208,34 @@ describe("API-TESTING", () => {
               expect(message).to.equal("That id does not exist");
             });
         });
-        describe("Status: 400", () => {
-          it("400 response for invalid id type (bad request(app))", () => {
-            return request(app)
-              .get("/api/users/not_a_valid_id")
-              .expect(400);
-          });
+      });
+      describe("Status: 400", () => {
+        it("400 response for invalid id type (bad request(app))", () => {
+          return request(app)
+            .get("/api/users/not_a_valid_id")
+            .expect(400);
         });
       });
     });
-    describe("Patch - /api/users/:id", () => {
-      describe("Status: 201", () => {
-        it("returns status 201 for successful patch", () => {
-          const postReq = { avatar: "new_avatar" };
-          return request(app)
-            .patch("/api/users/1")
-            .send(postReq)
-            .expect(201);
-        });
-        it("avatar is successfully updated on patch request(app)", () => {
-          const postReq = { avatar: "new_avatar" };
-          return request(app)
-            .patch("/api/users/1")
-            .send(postReq)
-            .expect(201)
-            .then(({ body: { updatedUser } }) => {
-              expect(updatedUser.avatar).to.equal("new_avatar");
-            });
-        });
+  });
+  describe("Patch - /api/users/:id", () => {
+    describe("Status: 201", () => {
+      it("returns status 201 for successful patch", () => {
+        const postReq = { avatar: "new_avatar" };
+        return request(app)
+          .patch("/api/users/1")
+          .send(postReq)
+          .expect(201);
+      });
+      it("avatar is successfully updated on patch request(app)", () => {
+        const postReq = { avatar: "new_avatar" };
+        return request(app)
+          .patch("/api/users/1")
+          .send(postReq)
+          .expect(201)
+          .then(({ body: { updatedUser } }) => {
+            expect(updatedUser.avatar).to.equal("new_avatar");
+          });
       });
     });
   });
@@ -247,7 +248,7 @@ describe("API-TESTING", () => {
           .expect(201);
       });
     });
-    describe.only("Post - /api/users/ - Errors", () => {
+    describe("Post - /api/users/ - Errors", () => {
       describe("Status: 404", () => {
         it("Returns with a status of 404 and a route not found emssage", () => {
           return request(app)
@@ -307,26 +308,55 @@ describe("API-TESTING", () => {
         });
       });
     });
-    describe("Patch - /api/user_routes", () => {
-      describe("Status: 201", () => {
-        it("Updates the progress on the patched route", () => {
+  });
+  describe("Patch - /api/user_routes", () => {
+    describe("Status: 201", () => {
+      it("Updates the progress on the patched route", () => {
+        return request(app)
+          .patch("/api/user_routes")
+          .send({ user_id: 1, routes_id: 1 })
+          .expect(201)
+          .then(({ body: { updatedUserRoutes } }) => {
+            expect(updatedUserRoutes.progress).to.equal(2);
+          });
+      });
+    });
+    describe.only("Patch - /api/user_routes - Errors", () => {
+      describe("Status: 404", () => {
+        it("When sent an incorrect url returns with a 404", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .patch("/api/users_routes")
             .send({ user_id: 1, routes_id: 1 })
-            .expect(201)
-            .then(({ body: { updatedUserRoutes } }) => {
-              expect(updatedUserRoutes.progress).to.equal(2);
-            });
+            .expect(404);
         });
       });
-      describe("Patch - /api/user_routes - Errors", () => {
-        describe("Status: 404", () => {
-          it("When sent an incorrect url returns with a 404", () => {
-            return request(app)
-              .patch("/api/users_routes")
-              .send({ user_id: 1, routes_id: 1 })
-              .expect(404);
-          });
+      describe("Status: 400", () => {
+        it("When sent an empty request body sends a error", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({})
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Empty request body");
+            });
+        });
+        it("When sent an request body without user_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ routes_id: 1 })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No user_id on request body");
+            });
+        });
+        it("When sent an request body without routes_id returns with a 400", () => {
+          return request(app)
+            .patch("/api/user_routes")
+            .send({ user_id: 1 })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No routes_id on request body");
+            });
         });
       });
     });
