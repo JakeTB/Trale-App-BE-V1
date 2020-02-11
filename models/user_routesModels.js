@@ -1,6 +1,7 @@
 const connection = require("../db/connection");
 
 exports.postUserRoute = body => {
+  console.log(body);
   const { user_id, routes_id, route_name } = body;
   const progress = 0;
   const newUserRoute = { user_id, routes_id, progress, route_name };
@@ -62,10 +63,14 @@ exports.patchUserRoutes = body => {
 exports.getSingleUserRoutes = params => {
   console.log("Hello");
   const { user_id } = params;
-  return connection("user_routes")
+  console.log(user_id);
+  return connection
+    .select("user_routes.*")
+    .from("user_routes")
     .where({ user_id })
-    .returning("*")
+    .leftJoin("pubs", "pubs.routes_id", "user_routes.routes_id")
     .then(response => {
+      console.log("RESPONSE", response);
       if (!response.length) {
         return Promise.reject({
           status: 400,
