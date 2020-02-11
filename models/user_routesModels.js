@@ -1,9 +1,9 @@
 const connection = require("../db/connection");
 
 exports.postUserRoute = body => {
-  const { user_id, routes_id } = body;
+  const { user_id, routes_id, route_name } = body;
   const progress = 0;
-  const newUserRoute = { user_id, routes_id, progress };
+  const newUserRoute = { user_id, routes_id, progress, route_name };
   if (!user_id && !routes_id) {
     return Promise.reject({
       status: 400,
@@ -59,6 +59,7 @@ exports.patchUserRoutes = body => {
     });
 };
 exports.getSingleUserRoutes = params => {
+  console.log("Hello");
   const { user_id } = params;
   return connection("user_routes")
     .where({ user_id })

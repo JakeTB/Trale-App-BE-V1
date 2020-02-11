@@ -29,13 +29,24 @@ exports.getSingleUser = params => {
 };
 exports.patchSingleUser = (params, body) => {
   const { id } = params;
-  const { avatar } = body;
-  return connection
-    .select("*")
-    .from("users")
-    .where({ id })
-    .update({ avatar })
-    .returning("*");
+  const { avatar, bio, active_route } = body;
+  console.log(body);
+  if (!active_route) {
+    return connection
+      .select("*")
+      .from("users")
+      .where({ id })
+      .update({ avatar, bio })
+      .returning("*");
+  }
+  // if (active_route) {
+  //   return connection("users.active_route")
+  //     .insert(active_route)
+  //     .returning("*")
+  //     .then(response => {
+  //       console.log(response);
+  //     });
+  // }
 };
 
 exports.addNewUser = user => {
