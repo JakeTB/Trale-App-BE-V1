@@ -1,7 +1,7 @@
 const connection = require("../db/connection");
 
 exports.postUserRoute = body => {
-  console.log(body);
+  console.log("Incoming post", body);
   const { user_id, routes_id, route_name } = body;
   const progress = 0;
   const newUserRoute = { user_id, routes_id, progress, route_name };
