@@ -12,6 +12,7 @@ exports.up = function(knex) {
       .inTable("routes")
       .onDelete("cascade");
     userroutesTable.integer("progress");
+    userroutesTable.text("route_name");
   });
 };
 

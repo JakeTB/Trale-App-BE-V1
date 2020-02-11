@@ -237,6 +237,24 @@ describe("API-TESTING", () => {
             expect(updatedUser.avatar).to.equal("new_avatar");
           });
       });
+      it("Should be able to update the user bio if sent the correct body", () => {
+        return request(app)
+          .patch("/api/users/1")
+          .send({ bio: "Hello" })
+          .expect(201)
+          .then(({ body: { updatedUser } }) => {
+            expect(updatedUser.bio).to.equal("Hello");
+          });
+      });
+      it("Should be able to update the user active routes if sent the correct body", () => {
+        return request(app)
+          .patch("/api/users/1")
+          .send({ active_route: 1 })
+          .expect(201)
+          .then(({ body: { updatedUser } }) => {
+            expect(updatedUser.bio).to.equal("Hello");
+          });
+      });
     });
   });
   describe("Post -  /api/users/", () => {
@@ -282,10 +300,14 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe("Post - /api/user_routes", () => {
+  describe.only("Post - /api/user_routes", () => {
     describe("Status: 201", () => {
       it("The posted route appears in the database", () => {
-        const newPost = { user_id: 2, routes_id: 1 };
+        const newPost = {
+          user_id: 2,
+          routes_id: 1,
+          route_name: "Trans-Pennine Trail"
+        };
         return request(app)
           .post("/api/user_routes")
           .send(newPost)
@@ -295,6 +317,7 @@ describe("API-TESTING", () => {
             expect(userRoute.id).to.equal(5);
             expect(userRoute.user_id).to.equal(2);
             expect(userRoute.routes_id).to.equal(1);
+            expect(userRoute.route_name).to.equal("Trans-Pennine Trail");
           });
       });
     });
