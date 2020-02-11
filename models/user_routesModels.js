@@ -4,7 +4,24 @@ exports.postUserRoute = body => {
   const { user_id, routes_id } = body;
   const progress = 0;
   const newUserRoute = { user_id, routes_id, progress };
-
+  if (!user_id && !routes_id) {
+    return Promise.reject({
+      status: 400,
+      message: "No request body"
+    });
+  }
+  if (!user_id) {
+    return Promise.reject({
+      status: 400,
+      message: "No user_id"
+    });
+  }
+  if (!routes_id) {
+    return Promise.reject({
+      status: 400,
+      message: "No routes_id"
+    });
+  }
   return connection
     .insert(newUserRoute)
     .into("user_routes")
@@ -45,5 +62,14 @@ exports.getSingleUserRoutes = params => {
   const { user_id } = params;
   return connection("user_routes")
     .where({ user_id })
-    .returning("*");
+    .returning("*")
+    .then(response => {
+      if (!response.length) {
+        return Promise.reject({
+          status: 400,
+          message: "No value for that id"
+        });
+      }
+      return response;
+    });
 };

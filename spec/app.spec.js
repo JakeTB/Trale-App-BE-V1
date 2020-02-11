@@ -303,8 +303,37 @@ describe("API-TESTING", () => {
         it("Returns with a 404 when sent a wrong url", () => {
           return request(app)
             .post("/api/users_routs")
-            .send({ user_id: 2, routes_id: 1, progress: 0 })
+            .send({ user_id: 2, routes_id: 1 })
             .expect(404);
+        });
+      });
+      describe("Status: 400", () => {
+        it("When sent an empty body returns with a status 400", () => {
+          return request(app)
+            .post("/api/user_routes")
+            .send({})
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No request body");
+            });
+        });
+        it("When sent a body without a user_id returns with a status 400", () => {
+          return request(app)
+            .post("/api/user_routes")
+            .send({ routes_id: 1 })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No user_id");
+            });
+        });
+        it("When sent a body without a routes_id returns with a status 400", () => {
+          return request(app)
+            .post("/api/user_routes")
+            .send({ user_id: 1 })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No routes_id");
+            });
         });
       });
     });
@@ -373,12 +402,36 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("Get - /api/users_routes/:user_id", () => {
+  describe("Get - /api/user_routes/:user_id", () => {
     describe("Status: 200", () => {
       it("Responds with a status of 200", () => {
         return request(app)
           .get("/api/user_routes/1")
           .expect(200);
+      });
+    });
+    describe("Get - /api/user_routes/:user_id - Errors", () => {
+      describe("Status: 404", () => {
+        it("When sent an incorrect route responds with 404", () => {
+          return request(app)
+            .get("/api/user_rout/1")
+            .expect(404);
+        });
+      });
+      describe("Status: 400", () => {
+        it("When passed an incorrect id type responds with a 400", () => {
+          return request(app)
+            .get("/api/user_routes/apple")
+            .expect(400);
+        });
+        it("When passed a valid id that does not exist reponds with a status 400", () => {
+          return request(app)
+            .get("/api/user_routes/9999")
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("No value for that id");
+            });
+        });
       });
     });
   });
