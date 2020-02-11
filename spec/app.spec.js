@@ -300,7 +300,7 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("Post - /api/user_routes", () => {
+  describe("Post - /api/user_routes", () => {
     describe("Status: 201", () => {
       it("The posted route appears in the database", () => {
         const newPost = {
@@ -361,7 +361,7 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe("Patch - /api/user_routes", () => {
+  describe.only("Patch - /api/user_routes", () => {
     describe("Status: 201", () => {
       it("Updates the progress on the patched route", () => {
         return request(app)
@@ -370,6 +370,15 @@ describe("API-TESTING", () => {
           .expect(201)
           .then(({ body: { updatedUserRoutes } }) => {
             expect(updatedUserRoutes.progress).to.equal(2);
+          });
+      });
+      it("It can change a route to completed", () => {
+        return request(app)
+          .patch("/api/user_routes")
+          .send({ user_id: 1, routes_id: 1, completed: true })
+          .expect(201)
+          .then(({ body: { updatedUserRoutes } }) => {
+            expect(updatedUserRoutes.completed).to.equal(true);
           });
       });
     });
