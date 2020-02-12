@@ -2,7 +2,8 @@ const {
   getAllUsers,
   getSingleUser,
   patchSingleUser,
-  addNewUser
+  addNewUser,
+  deleteSingleUser
 } = require("../models/usersModels");
 
 exports.SendAllUsers = (req, res, next) => {
@@ -36,4 +37,9 @@ exports.createNewUser = (req, res, next) => {
       res.status(201).send({ user });
     })
     .catch(next);
+};
+exports.RemoveSingleUser = (req, res, next) => {
+  deleteSingleUser(req.params).then(() => {
+    res.sendStatus(204);
+  });
 };

@@ -61,16 +61,12 @@ exports.patchUserRoutes = body => {
     });
 };
 exports.getSingleUserRoutes = params => {
-  console.log("Hello");
   const { user_id } = params;
-  console.log(user_id);
   return connection
-    .select("user_routes.*")
+    .select("*")
     .from("user_routes")
     .where({ user_id })
-    .leftJoin("pubs", "pubs.routes_id", "user_routes.routes_id")
     .then(response => {
-      console.log("RESPONSE", response);
       if (!response.length) {
         return Promise.reject({
           status: 400,

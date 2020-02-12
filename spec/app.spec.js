@@ -218,7 +218,7 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe("Patch - /api/users/:id", () => {
+  describe.only("Patch - /api/users/:id", () => {
     describe("Status: 201", () => {
       it("returns status 201 for successful patch", () => {
         const postReq = { avatar: "new_avatar" };
@@ -246,14 +246,14 @@ describe("API-TESTING", () => {
             expect(updatedUser.bio).to.equal("Hello");
           });
       });
-      it("Should be able to update the user active routes if sent the correct body", () => {
+    });
+  });
+  describe("Delete - /api/users/:id", () => {
+    describe("Status: 204", () => {
+      it("When sent a delete request to an existing user the server should respond with a status 204 signalling that the user was deleted", () => {
         return request(app)
-          .patch("/api/users/1")
-          .send({ active_route: 1 })
-          .expect(201)
-          .then(({ body: { updatedUser } }) => {
-            expect(updatedUser.bio).to.equal("Hello");
-          });
+          .del("/api/users/1")
+          .expect(204);
       });
     });
   });
@@ -434,15 +434,12 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("Get - /api/user_routes/:user_id", () => {
+  describe("Get - /api/user_routes/:user_id", () => {
     describe("Status: 200", () => {
-      it.only("Responds with a status of 200", () => {
+      it("Responds with a status of 200", () => {
         return request(app)
           .get("/api/user_routes/1")
-          .expect(200)
-          .then(({ body }) => {
-            console.log(body);
-          });
+          .expect(200);
       });
     });
     describe("Get - /api/user_routes/:user_id - Errors", () => {
