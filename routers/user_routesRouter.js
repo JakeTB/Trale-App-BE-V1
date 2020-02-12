@@ -11,6 +11,6 @@ user_routesRouter
   .route("/")
   .get(sendAllUserRoutes)
   .post(createUserRoutes)
-  .patch(updateUserRoutes);
+  .put(updateUserRoutes);
 user_routesRouter.route("/:user_id").get(sendSingleUserRoutes);
 module.exports = { user_routesRouter };

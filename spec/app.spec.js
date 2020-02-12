@@ -365,7 +365,7 @@ describe("API-TESTING", () => {
     describe("Status: 201", () => {
       it("Updates the progress on the patched route", () => {
         return request(app)
-          .patch("/api/user_routes")
+          .put("/api/user_routes")
           .send({ user_id: 1, routes_id: 1, inc_progress: 1 })
           .expect(201)
           .then(({ body: { updatedUserRoutes } }) => {
@@ -374,7 +374,7 @@ describe("API-TESTING", () => {
       });
       it("It can change a route to completed", () => {
         return request(app)
-          .patch("/api/user_routes")
+          .put("/api/user_routes")
           .send({ user_id: 1, routes_id: 1, completed: true })
           .expect(201)
           .then(({ body: { updatedUserRoutes } }) => {
@@ -386,7 +386,7 @@ describe("API-TESTING", () => {
       describe("Status: 404", () => {
         it("When sent an incorrect url returns with a 404", () => {
           return request(app)
-            .patch("/api/users_routes")
+            .put("/api/users_routes")
             .send({ user_id: 1, routes_id: 1 })
             .expect(404);
         });
@@ -394,7 +394,7 @@ describe("API-TESTING", () => {
       describe("Status: 400", () => {
         it("When sent an empty request body sends a error", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .put("/api/user_routes")
             .send({})
             .expect(400)
             .then(({ body: { message } }) => {
@@ -403,7 +403,7 @@ describe("API-TESTING", () => {
         });
         it("When sent an request body without user_id returns with a 400", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .put("/api/user_routes")
             .send({ routes_id: 1 })
             .expect(400)
             .then(({ body: { message } }) => {
@@ -412,7 +412,7 @@ describe("API-TESTING", () => {
         });
         it("When sent an request body without routes_id returns with a 400", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .put("/api/user_routes")
             .send({ user_id: 1 })
             .expect(400)
             .then(({ body: { message } }) => {
@@ -421,13 +421,13 @@ describe("API-TESTING", () => {
         });
         it("When sent a patch request with an invalid user_id returns with a 400", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .put("/api/user_routes")
             .send({ user_id: "apple", routes_id: 1 })
             .expect(400);
         });
         it("When sent a patch request with an invalid route_id returns with a 400", () => {
           return request(app)
-            .patch("/api/user_routes")
+            .put("/api/user_routes")
             .send({ user_id: 1, routes_id: "apple" })
             .expect(400);
         });
