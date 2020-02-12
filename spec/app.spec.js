@@ -218,7 +218,7 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe.only("Patch - /api/users/:id", () => {
+  describe("Patch - /api/users/:id", () => {
     describe("Status: 201", () => {
       it("returns status 201 for successful patch", () => {
         const postReq = { avatar: "new_avatar" };
@@ -361,12 +361,12 @@ describe("API-TESTING", () => {
       });
     });
   });
-  describe("Patch - /api/user_routes", () => {
+  describe.only("Patch - /api/user_routes", () => {
     describe("Status: 201", () => {
       it("Updates the progress on the patched route", () => {
         return request(app)
           .patch("/api/user_routes")
-          .send({ user_id: 1, routes_id: 1 })
+          .send({ user_id: 1, routes_id: 1, inc_progress: 1 })
           .expect(201)
           .then(({ body: { updatedUserRoutes } }) => {
             expect(updatedUserRoutes.progress).to.equal(2);
