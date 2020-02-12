@@ -63,6 +63,7 @@ exports.patchUserRoutes = body => {
 };
 exports.getSingleUserRoutes = params => {
   const { user_id } = params;
+  console.log("Here");
   return connection
     .select("*")
     .from("user_routes")
