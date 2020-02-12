@@ -33,6 +33,7 @@ exports.postUserRoute = body => {
 };
 exports.patchUserRoutes = body => {
   const { user_id, routes_id, completed, inc_progress } = body;
+  console.log("patchUserRoutes", body);
   if (!user_id && !routes_id) {
     return Promise.reject({
       status: 400,
