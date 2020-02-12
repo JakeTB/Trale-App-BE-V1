@@ -2,7 +2,8 @@ const {
   SendAllUsers,
   SendSingleUser,
   UpdateSingleUser,
-  createNewUser
+  createNewUser,
+  RemoveSingleUser
 } = require("../controllers/usersController");
 
 const userRouter = require("express").Router();
@@ -14,5 +15,7 @@ userRouter
 userRouter
   .route("/:id")
   .get(SendSingleUser)
-  .patch(UpdateSingleUser);
+  .patch(UpdateSingleUser)
+  .delete(RemoveSingleUser);
+
 module.exports = { userRouter };
