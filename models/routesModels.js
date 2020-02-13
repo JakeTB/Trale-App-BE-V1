@@ -13,11 +13,11 @@ exports.getSingleRoute = params => {
       "pubs.id",
       "routes.route_name",
       "pubs.routes_id",
-      "pubs.pub_description"
+      "pubs.pub_description",
+      "routes.route_PubCount"
     )
     .from("pubs")
     .where("routes_id", id)
     .leftJoin("routes", "pubs.routes_id", "routes.id")
-
     .orderBy("pubs.id", "asc");
 };

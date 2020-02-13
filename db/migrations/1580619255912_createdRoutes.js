@@ -5,7 +5,7 @@ exports.up = function(knex) {
     routesTable.text("route_name").notNullable();
     routesTable.text("route_picture");
     routesTable.text("route_type");
-    routesTable.integer("route_pubCount");
+    routesTable.integer("route_PubCount");
   });
 };
 
