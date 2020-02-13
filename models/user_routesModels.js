@@ -65,9 +65,10 @@ exports.getSingleUserRoutes = params => {
   const { user_id } = params;
   console.log("Here");
   return connection
-    .select("*")
+    .select("user_routes.*", "routes.route_PubCount")
     .from("user_routes")
     .where({ user_id })
+    .leftJoin("routes", "user_routes.routes_id", "routes.id")
     .then(response => {
       if (!response.length) {
         return Promise.reject({
