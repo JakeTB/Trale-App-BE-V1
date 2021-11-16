@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.610.0",
+    "aws-sdk": "^2.814.0",
     "chai": "^4.2.0",
     "chai-sorted": "^0.2.0",
     "cors": "^2.8.5",
